@@ -1,19 +1,19 @@
-# pyplus
+# pyfx
 
 This is a package of helper classes and libraries.
 
 ## Author
 
-[dennislwm](https://github.com/dennislwm/pyplus)
+[dennislwm](https://github.com/dennislwm/pyfx)
 
 ## Installation
 
-     $ pip install pyplus
+     $ pip install pyfx
 
 ## Example
 
 ```python
-     import ChartCls from pyplus
+     import ChartCls from pyfx
 ```
 
 ## Getting Data

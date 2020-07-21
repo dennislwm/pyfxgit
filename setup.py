@@ -12,14 +12,14 @@ with open(path.join(strCwd, 'README.md'), encoding='utf-8') as f:
 # │ │ └─────────────── test version
 # │ └──────────────────── minor version
 # └───────────────────────── major version
-setup(name='pyplus',
+setup(name='pyfx',
   version='0.1.0',
   description='This is a package of helper classes and libraries.',
-  packages=['pyplus'],
+  packages=['pyfx'],
   install_requires=['matplotlib==3.2.2','mpl_finance'],
   author='Dennis Lee',
   author_email='dennislwm@gmail.com',
-  URL="https://github.com/dennislwm/pyplus", 
+  URL="https://github.com/dennislwm/pyfx", 
   long_description=strDesc,
   long_description_content_type='text/markdown',
   license="MIT", 
