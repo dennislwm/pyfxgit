@@ -13,10 +13,10 @@ with open(path.join(strCwd, 'README.md'), encoding='utf-8') as f:
 # │ └──────────────────── minor version
 # └───────────────────────── major version
 setup(name='pyfx',
-  version='0.1.0',
+  version='0.0.1',
   description='This is a package of helper classes and libraries.',
   packages=['pyfx'],
-  install_requires=['matplotlib==3.2.2','mpl_finance'],
+  install_requires=['matplotlib==3.2.2','mpl_finance','numpy==1.18.5','pandas==1.0.5'],
   author='Dennis Lee',
   author_email='dennislwm@gmail.com',
   URL="https://github.com/dennislwm/pyfx", 

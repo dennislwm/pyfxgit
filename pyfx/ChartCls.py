@@ -4,6 +4,8 @@
 import matplotlib.dates as dates
 import matplotlib.pyplot as pyplot
 import mpl_finance as mpfold
+import numpy as np
+import pandas as pd
 
 def lstCalcAxes(dblBgn=0.0, dblLen=0.2, dblGap=0.02, intNum=2):
     """
@@ -150,7 +152,55 @@ class ChartCls():
         ax.plot(data.index, [intLower] * intBars, label=strLower)
         ax.plot(data.index, data[-intBars:], label=strTitle)
         ax.legend()        
-    
+
+    def BuildOscillatorTag(self, dfData, strCol, intPlusMinus=4):
+        """
+        | Objective: tag start and end of bull / bear with unique tags, e.g. "A", "B", etc
+        """
+        df=dfData[strCol]
+        #
+        # create empty series
+        dfTag = pd.Series(index=df.index, dtype='int64')
+
+        """
+        | Rolling mean, std and zscore
+        """
+        i=0; intTagBull=0; intTagBear=0;
+        for index, values in df.iteritems():
+            #
+            #---  get current and previous values
+            intDbs = df.iloc[i]
+            if i==0:
+                intPrv = 0
+            else:
+                intPrv = df.iloc[i-1]
+            """
+            | Dbs | Prv | Result
+            | =4  | <4  |  inc + tag
+            | =4  | =4  |  tag
+            | <4  | *   |  no tag
+            | >-4 | *   |  no tag
+            | =-4 | >-4 |  inc + tag
+            | =-4 | =-4 |  tag
+            |
+            """
+            if intDbs >= intPlusMinus:
+                if intPrv < intPlusMinus:
+                    intTagBull = intTagBull + 1
+                dfTag.iloc[i] = intTagBull
+            elif intDbs <= -intPlusMinus:
+                if intPrv > -intPlusMinus:
+                    intTagBear = intTagBear - 1
+                dfTag.iloc[i] = intTagBear
+            i = i + 1
+        dfData['Tag'] = dfTag
+            
+        """
+        | Return array of unique tags
+        """
+        return np.delete(dfTag.unique(), 0)
+        
+
     def save(self, strSuffix=""):
         strFile = self._strMETAFILE + strSuffix + ".png"
         """
