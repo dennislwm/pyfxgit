@@ -1,19 +1,19 @@
-# pyfx
+# pyfxgit
 
 This is a package of helper classes and libraries.
 
 ## Author
 
-[dennislwm](https://github.com/dennislwm/pyfx)
+[dennislwm](https://github.com/dennislwm/pyfxgit)
 
 ## Installation
 
-     $ pip install pyfx
+     $ pip install pyfxgit
 
 ## Example
 
 ```python
-     import ChartCls from pyfx
+     from pyfxgit.ChartCls import ChartCls
 ```
 
 ## Getting Data
@@ -30,10 +30,8 @@ Note: Variable **data** is of type DataFrame that consists of columns ['Open', '
 
 ### Build tags  
 
-Note: Function **BuildTag()** is an external function that return a list of unique tags based on column 'DbsMa' and cutoff=3.75.
-
 ```python
-     lstTag = BuildTag('DbsMa', 3.75)
+     lstTag = chart.BuildOscillatorTag(data, 'DbsMa', 3.75)
 ```
 
 ### Add spans to main chart
