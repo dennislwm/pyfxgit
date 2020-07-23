@@ -5,7 +5,7 @@
 # Test pip install
 # $ pip install --no-deps --index-url https://test.pypi.org/simple/ pyplus
 
-name: Upload Python Package
+name: Upload Python Package to Test.Pypi.org
 
 #
 # Automated run on each GitHub push
