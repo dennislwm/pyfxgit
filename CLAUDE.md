@@ -40,7 +40,7 @@ twine upload dist/*
 
 ### Core Structure
 - **pyfxgit/ChartCls.py**: Main charting class that provides financial chart creation functionality
-- **setup.py**: Package configuration with dependencies: matplotlib==3.2.2, mpl_finance, numpy==1.18.5, pandas==1.3.0
+- **setup.py**: Package configuration with dependencies: matplotlib==3.9.4, mpl_finance, numpy==2.0.2, pandas==2.3.1
 - **pyfxgit/__init__.py**: Empty package initializer
 
 ### ChartCls Architecture
@@ -59,11 +59,11 @@ The `ChartCls` class is the primary component with these key responsibilities:
 4. Output: PNG chart files saved locally
 
 ### Dependencies and Versions
-- Python 3.9 (specified in Pipfile)
-- matplotlib==3.2.2 for plotting
+- Python 3.9 (specified in Pipfile and GitHub Actions)
+- matplotlib==3.9.4 for plotting
 - mpl_finance for OHLC charts
-- numpy==1.18.5 for numerical operations
-- pandas==1.3.0 for data handling
+- numpy==2.0.2 for numerical operations
+- pandas==2.3.1 for data handling
 
 ## Package Structure
 ```
@@ -116,13 +116,13 @@ gh auth status               # Check authentication status
 **Creating releases for PyPI packages**:
 ```bash
 # Tag new version and create GitHub release
-gh release create v0.0.3 --title "Release v0.0.3" --notes "Update pandas to 1.3.0"
+gh release create v0.1.0 --title "Release v0.1.0" --notes "Update dependencies: numpy 2.0.2, pandas 2.3.1, matplotlib 3.9.4"
 
 # Upload distribution files to release
-gh release upload v0.0.3 dist/pyfxgit-0.0.3.tar.gz dist/pyfxgit-0.0.3-py3-none-any.whl
+gh release upload v0.1.0 dist/pyfxgit-0.1.0.tar.gz dist/pyfxgit-0.1.0-py3-none-any.whl
 
 # View release details
-gh release view v0.0.3
+gh release view v0.1.0
 ```
 
 **Repository maintenance**:
@@ -133,7 +133,7 @@ gh issue list --state=open    # Check open issues
 gh pr list --state=open       # Check open pull requests
 
 # Create issues for package improvements
-gh issue create --title "Update matplotlib dependency" --body "Consider updating matplotlib from 3.2.2 to latest stable version"
+gh issue create --title "Update mpl_finance dependency" --body "Consider replacing deprecated mpl_finance with mplfinance package"
 ```
 
 ### Development Integration
@@ -152,3 +152,65 @@ gh pr create --title "Update dependencies" --body "Updates matplotlib and numpy 
 gh pr view 1 --comments       # View PR with comments
 gh pr checkout 1              # Checkout PR for local testing
 ```
+
+## GitHub Actions Workflow
+
+The project includes automated CI/CD workflows for package distribution:
+
+### Workflow Files
+- **`.github/workflows/publish_test.yml`**: Automated upload to Test PyPI on every push
+
+### Workflow Testing with GitHub CLI
+
+**Monitor workflow runs**:
+```bash
+# List recent workflow runs
+gh run list --limit 10
+
+# Watch a running workflow in real-time
+gh run watch <run-id>
+
+# View specific run details
+gh run view <run-id>
+
+# View failed run logs for debugging
+gh run view <run-id> --log-failed
+```
+
+**Workflow debugging process**:
+```bash
+# Create test branch for workflow changes
+git checkout -b test-workflow-updates
+
+# Make workflow changes and commit
+git add .github/workflows/publish_test.yml setup.py
+git commit -m "Update workflow: Python 3.9, dependencies"
+git push -u origin test-workflow-updates
+
+# Monitor the triggered workflow
+gh run list --workflow="Upload Python Package to Test.Pypi.org"
+gh run watch <run-id>
+
+# Debug failures
+gh run view <run-id> --log-failed
+```
+
+### Common Workflow Issues
+
+**Version conflicts**:
+- Test PyPI doesn't allow re-uploading the same version
+- Solution: Increment version number in `setup.py`
+
+**Setup.py warnings**:
+- Case-sensitive parameters ("URL" should be "url")
+- Missing required metadata fields
+
+**Dependency compatibility**:
+- Test locally before pushing workflow changes
+- Consider backward compatibility when updating major versions
+
+### Current Workflow Status
+- **Python version**: 3.9 (updated from 3.8)
+- **Latest package version**: 0.1.0
+- **Test PyPI URL**: https://test.pypi.org/project/pyfxgit/
+- **Workflow trigger**: Every push to any branch
