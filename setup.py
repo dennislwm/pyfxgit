@@ -13,7 +13,7 @@ with open(path.join(strCwd, 'README.md'), encoding='utf-8') as f:
 # │ └──────────────────── minor version
 # └───────────────────────── major version
 setup(name='pyfxgit',
-  version='0.0.3',
+  version='0.1.0',
   description='This is a package of helper classes and libraries.',
   packages=['pyfxgit'],
   install_requires=['matplotlib==3.9.4','mpl_finance','numpy==2.0.2','pandas==2.3.1'],
