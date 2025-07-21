@@ -166,7 +166,7 @@ class ChartCls():
         | Rolling mean, std and zscore
         """
         i=0; intTagBull=0; intTagBear=0;
-        for index, values in df.iteritems():
+        for index, values in df.items():
             #
             #---  get current and previous values
             intDbs = df.iloc[i]

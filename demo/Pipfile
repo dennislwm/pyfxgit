@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+matplotlib = "==3.9.4"
+mpl-finance = "*"
+numpy = "==2.0.2"
+pandas = "==2.3.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
+python_full_version = "3.9.21"
